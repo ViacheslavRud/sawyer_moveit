@@ -23,8 +23,8 @@
              <arg name="depth_frame_id" value="camera_depth_optical_frame"/>
          </include>
          <!-- Users update this to set transform between camera and robot -->
-         <node pkg="tf" type="static_transform_publisher" name="camera_link_broadcaster"
-               args="$(arg camera_link_pose) /torso /camera_link 100" />
+         <!-- <node pkg="tf" type="static_transform_publisher" name="camera_link_broadcaster"
+               args="$(arg camera_link_pose) /torso /camera_link 100" /> -->
 
          <!-- octomap parameters for moveit -->
          <group ns="move_group" >
