@@ -122,9 +122,16 @@ planner_configs:
     max_failures: 5000  # maximum consecutive failure limit. default: 5000
 
     # Additional planners copied from anonymus moveit pkg
+  BiTRRTkConfigDefault:
+    type: geometric::BiTRRT
+    range: 0.9  # Max motion added to tree. ==> maxDistance_ default: 0.0, if 0.0, set on setup()
+    temp_change_factor: 0.1  # how much to increase or decrease temp. default: 0.1
+    init_temperature: 100  # initial temperature. default: 100
+    frountier_threshold: 0.0  # dist new state to nearest neighbor to disqualify as frontier. default: 0.0 set in setup()
+    frountier_node_ratio: 0.1  # 1/10, or 1 nonfrontier for every 10 frontier. default: 0.1
+    cost_threshold: 1e300  # the cost threshold. Any motion cost that is not better will not be expanded. default: inf
 right_arm:
   default_planner_config: RRTConnectkConfigDefault
-  projection_evaluator: joints(right_j0, right_j1)
   longest_valid_segment_fraction: 0.005
   planner_configs:
     - SBLkConfigDefault
@@ -150,6 +157,9 @@ right_arm:
     - LazyPRMstar
     - SPARS
     - SPARStwo
+    - BiTRRTkConfigDefault
+  projection_evaluator: joints(right_l0,right_l1,right_l2,right_l3,right_l4,right_l5,right_l6)
+
 head:
   default_planner_config: RRTConnectkConfigDefault
   planner_configs:
@@ -164,15 +174,3 @@ head:
     - TRRTkConfigDefault
     - PRMkConfigDefault
     - PRMstarkConfigDefault
-    - FMT
-    - BFMT
-    - PDST
-    - STRIDE
-    - BiTRRT
-    - LBTRRT
-    - BiEST
-    - ProjEST
-    - LazyPRM
-    - LazyPRMstar
-    - SPARS
-    - SPARStwo
